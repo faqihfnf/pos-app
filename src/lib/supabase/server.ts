@@ -6,7 +6,9 @@ type CreateClientOptions = {
   isAdmin?: boolean;
 };
 
-export async function createClient({ isAdmin = false }: CreateClientOptions) {
+export async function createClient({
+  isAdmin = false,
+}: CreateClientOptions = {}) {
   const cookieStore = await cookies();
 
   return createServerClient(
