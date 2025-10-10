@@ -23,7 +23,10 @@ export async function login(
   if (!validatedFiels.success) {
     return {
       status: "error",
-      errors: validatedFiels.error.flatten().fieldErrors,
+      errors: {
+        ...validatedFiels.error.flatten().fieldErrors,
+        _form: [],
+      },
     };
   }
 
@@ -56,7 +59,7 @@ export async function login(
       httpOnly: true,
       path: "/",
       sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 30, // 30 days
+      maxAge: 60 * 60 * 24 * 1, // 1 day
     });
   }
 
