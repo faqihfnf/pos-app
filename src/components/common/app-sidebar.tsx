@@ -2,7 +2,10 @@
 import React from "react";
 import {
   Sidebar,
+  SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -20,11 +23,19 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import {
+  SIDEBAR_MENU_LIST,
+  SidebarMenuKey,
+} from "@/constants/sidebar-constant";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 export default function AppSidebar() {
   const isMobile = useSidebar().isMobile;
+  const pathname = usePathname();
+  const profile = { name: "Faqih Nur Fahmi", role: "admin", avatar_url: "" };
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -39,12 +50,41 @@ export default function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupContent className="flex flex-col gap-2">
+            <SidebarMenu>
+              {SIDEBAR_MENU_LIST[profile.role as SidebarMenuKey]?.map(
+                (item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild tooltip={item.title}>
+                      <a
+                        href={item.url}
+                        className={cn("h-auto px-4 py-3", {
+                          "bg-indigo-500 text-slate-100 hover:bg-indigo-600 hover:text-slate-100":
+                            pathname === item.url,
+                        })}
+                      >
+                        {item.icon && <item.icon className="size-5" />}
+                        <span>{item.title}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ),
+              )}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton size="lg" className="cursor-pointer">
+                <SidebarMenuButton
+                  size="lg"
+                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer"
+                >
                   <Avatar className="h-8 w-8 rounded-lg">
                     <AvatarImage />
                     <AvatarFallback className="rounded-lg">A</AvatarFallback>
