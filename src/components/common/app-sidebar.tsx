@@ -31,6 +31,7 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { signOut } from "@/actions/auth-action";
 import { useAuthStore } from "@/stores/auth-store";
+import Link from "next/link";
 
 export default function AppSidebar() {
   const isMobile = useSidebar().isMobile;
@@ -60,7 +61,7 @@ export default function AppSidebar() {
                 (item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild tooltip={item.title}>
-                      <a
+                      <Link
                         href={item.url}
                         className={cn("h-auto px-4 py-3", {
                           "bg-indigo-500 text-slate-100 hover:bg-indigo-600 hover:text-slate-100":
@@ -69,7 +70,7 @@ export default function AppSidebar() {
                       >
                         {item.icon && <item.icon className="size-5" />}
                         <span>{item.title}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ),
