@@ -1,11 +1,13 @@
 "use client";
 
+import DataTable from "@/components/common/data-table";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { HEADER_TABLE_USER } from "@/constants/user-constant";
 import { createClient } from "@/lib/supabase/client";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useMemo } from "react";
 import { toast } from "sonner";
 
 export default function UserManagement() {
@@ -25,6 +27,13 @@ export default function UserManagement() {
       return data;
     },
   });
+
+  const filteredData = useMemo(() => {
+    return (users || []).map((user, index) => {
+      return [index + 1, user.id, user.name, user.role];
+    });
+  }, [users]);
+
   return (
     <div className="w-full">
       <div className="mb-4 flex w-full flex-col justify-between gap-2 lg:flex-row">
@@ -38,13 +47,11 @@ export default function UserManagement() {
           </Dialog>
         </div>
       </div>
-      {isLoading && <p>Loading...</p>}
-      {users?.map((user) => (
-        <div key={user.id} className="">
-          <h2 className="text-lg font-semibold">{user.name}</h2>
-          <p className="text-muted-foreground text-sm">{user.role}</p>
-        </div>
-      ))}
+      <DataTable
+        header={HEADER_TABLE_USER}
+        isLoading={isLoading}
+        data={filteredData}
+      />
     </div>
   );
 }
