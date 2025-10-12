@@ -29,6 +29,7 @@ import {
 } from "@/constants/sidebar-constant";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { signOut } from "@/actions/auth-action";
 
 export default function AppSidebar() {
   const isMobile = useSidebar().isMobile;
@@ -120,7 +121,10 @@ export default function AppSidebar() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                  <DropdownMenuItem className="text-red-400">
+                  <DropdownMenuItem
+                    className="text-red-400"
+                    onClick={() => signOut()}
+                  >
                     <LogOut className="mr-2 size-4 text-red-400" />
                     Logout
                   </DropdownMenuItem>
