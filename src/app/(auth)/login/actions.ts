@@ -59,7 +59,7 @@ export async function login(
       httpOnly: true,
       path: "/",
       sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 1, // 1 day
+      maxAge: 60 * 60 * 3, // 3 hours
     });
   }
 

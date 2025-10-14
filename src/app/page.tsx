@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center space-y-4">
-      <h1 className="text-2xl font-bold">Welcome back, {profile.name} </h1>
+      <h1 className="text-2xl font-bold">Welcome back, {profile?.name}</h1>
       <Link href="/admin">
         <Button variant="primary">Dashboard</Button>
       </Link>
