@@ -7,8 +7,6 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
 import {
   Select,
   SelectContent,
@@ -55,7 +53,7 @@ export default function FormSelect<T extends FieldValues>({
                       key={item.value}
                       value={item.value}
                       disabled={item.disabled}
-                      className="capitalize"
+                      className="cursor-pointer capitalize"
                     >
                       {item.label}
                     </SelectItem>

@@ -20,10 +20,10 @@ export const CreateUserSchemaForm = z.object({
     .min(6, { message: "Password must be at least 6 characters" }),
   name: z.string().min(3, { message: "Name is required" }),
   role: z.string().min(3, { message: "Role is required" }),
-  // avatar_url: z.union([
-  //   z.string().min(1, { message: "Avatar URL is required" }),
-  //   z.instanceof(File),
-  // ]),
+  avatar_url: z.union([
+    z.string().min(1, { message: "Avatar URL is required" }),
+    z.instanceof(File),
+  ]),
 });
 
 export type LoginForm = z.infer<typeof loginSchemaForm>;
